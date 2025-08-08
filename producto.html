@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Entrenamiento Melisa #XXX — Producto</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Meta Pixel Base (ID: 1332485261412186) -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1332485261412186');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent'); /* evento de visualización de producto */
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1332485261412186&ev=PageView&noscript=1" /></noscript>
+</head>
+<body>
+  <main class="site" role="main" style="padding-top:2rem; padding-bottom:2rem;">
+    <section style="max-width:900px;margin:0 auto;">
+      <div class="card" style="display:flex;flex-direction:column;align-items:center;">
+        <img class="product-img" src="producto.jpg" alt="Producto Entrenamiento Melisa">
+        <h2 class="product-title">Pack Entrenamiento Melisa — Demo</h2>
+        <p class="product-desc">Un plan hipotético para la formación de agentes. Usa los botones para enviar eventos a Meta.</p>
+
+        <div style="display:flex;gap:0.9rem;margin-top:0.8rem;flex-wrap:wrap;">
+          <button id="addCart" class="btn btn-primary" type="button">Agregar al carrito</button>
+          <a href="index.html" class="btn btn-outline" role="button">Volver</a>
+        </div>
+
+        <p class="small" style="margin-top:0.9rem;">Nota: desactiva ad-blockers para pruebas en vivo.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Evento AddToCart - envía datos con parámetros (visibles en Test Events)
+    document.getElementById('addCart').addEventListener('click', function(){
+      fbq('track','AddToCart',{
+        value: 79.90,
+        currency: 'BRL',
+        content_name: 'Pack Entrenamiento Melisa - Demo',
+        content_ids: ['SKU-ENTRE1']
+      });
+      alert('Evento AddToCart enviado (ver en Pixel Helper / Events Manager).');
+    });
+  </script>
+</body>
+</html>

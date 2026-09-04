@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Checkout simulado para practicar eventos de Meta Pixel.">
+  <title>Checkout simulado — Laboratorio de Pixel</title><link rel="stylesheet" href="style.css">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','3213433525488406');fbq('track','PageView');fbq('track','InitiateCheckout',{value:79.90,currency:'BRL',content_ids:['SKU-ENTRE1'],content_type:'product',num_items:1});
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3213433525488406&ev=PageView&noscript=1" alt=""></noscript>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Laboratorio de Pixel</a><span class="status"><i></i> Entorno de práctica</span></header>
+  <main class="practice">
+    <section>
+      <a class="back" href="producto.html">← Volver al producto</a><p class="eyebrow">Paso 2 · Confirma la compra</p>
+      <h1>Checkout simulado</h1><p class="lead">Al llegar hasta aquí, el recorrido ya debería incluir <strong>InitiateCheckout</strong>. Confirma la operación para completar el embudo.</p>
+      <article class="checkout-card">
+        <div class="order-head"><div><span class="tag">Resumen</span><h2>Tu pedido de práctica</h2></div><strong>R$ 79,90</strong></div>
+        <div class="order-row"><span class="order-icon" aria-hidden="true">▦</span><div><strong>Pack de entrenamiento</strong><small>1 unidad · SKU-ENTRE1</small></div><strong>R$ 79,90</strong></div>
+        <div class="checkout-note"><strong>No se solicitarán datos personales.</strong><span>Esta operación es completamente simulada.</span></div>
+        <button id="purchaseButton" class="button primary">Confirmar compra simulada</button>
+        <div id="purchaseFeedback" class="purchase-feedback hidden" role="status" aria-live="polite"><span>✓</span><div><strong>Purchase enviado</strong><p>El recorrido ideal quedó completo. Comprueba el evento y sus parámetros.</p></div></div>
+      </article>
+    </section>
+    <aside class="observer">
+      <p class="eyebrow">Recorrido observado</p><h2>Embudo de eventos</h2>
+      <ol class="event-timeline"><li class="done"><span>1</span><div><strong>PageView</strong><small>Página visitada</small></div></li><li class="done"><span>2</span><div><strong>ViewContent</strong><small>Producto visualizado</small></div></li><li class="done"><span>3</span><div><strong>AddToCart</strong><small>Producto agregado</small></div></li><li class="done"><span>4</span><div><strong>InitiateCheckout</strong><small>Compra iniciada</small></div></li><li id="purchaseStep"><span>5</span><div><strong>Purchase</strong><small>Esperando confirmación</small></div></li></ol>
+      <div class="tip"><strong>Parámetros de Purchase</strong><p>value: 79.90 · currency: BRL<br>content_ids: ["SKU-ENTRE1"] · num_items: 1· items: 1</p></div>
+    </aside>
+  </main>
+  <footer><span>Laboratorio de Pixel</span><span>Creado por Melisa Almada</span></footer>
+  <script>
+  const purchaseButton=document.getElementById('purchaseButton'),purchaseFeedback=document.getElementById('purchaseFeedback')||document.getElementById('purchaseFeedback'),purchaseStep=document.getElementById('purchaseStep');
+  purchaseButton.addEventListener('click',()=>{fbq('track','Purchase',{value:79.90,currency:'BRL',content_name:'Pack Entrenamiento Melisa - Demo',content_ids:['SKU-ENTRE1'],content_type:'product',num_items:1});purchaseButton.classList.add('hidden');purchaseFeedback.classList.remove('hidden');purchaseStep.classList.add('done');purchaseStep.querySelector('small').textContent='Compra confirmada';});
+  </script>
+</body>
+</html>

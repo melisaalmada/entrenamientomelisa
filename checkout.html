@@ -28,12 +28,12 @@
     <aside class="observer">
       <p class="eyebrow">Recorrido observado</p><h2>Embudo de eventos</h2>
       <ol class="event-timeline"><li class="done"><span>1</span><div><strong>PageView</strong><small>Página visitada</small></div></li><li class="done"><span>2</span><div><strong>ViewContent</strong><small>Producto visualizado</small></div></li><li class="done"><span>3</span><div><strong>AddToCart</strong><small>Producto agregado</small></div></li><li class="done"><span>4</span><div><strong>InitiateCheckout</strong><small>Compra iniciada</small></div></li><li id="purchaseStep"><span>5</span><div><strong>Purchase</strong><small>Esperando confirmación</small></div></li></ol>
-      <div class="tip"><strong>Parámetros de Purchase</strong><p>value: 79.90 · currency: BRL<br>content_ids: ["SKU-ENTRE1"] · num_items: 1· items: 1</p></div>
+      <div class="tip"><strong>Parámetros de Purchase</strong><p>value: 79.90 · currency: BRL<br>content_ids: ["SKU-ENTRE1"] · num_items: 1</p></div>
     </aside>
   </main>
   <footer><span>Laboratorio de Pixel</span><span>Creado por Melisa Almada</span></footer>
   <script>
-  const purchaseButton=document.getElementById('purchaseButton'),purchaseFeedback=document.getElementById('purchaseFeedback')||document.getElementById('purchaseFeedback'),purchaseStep=document.getElementById('purchaseStep');
+  const purchaseButton=document.getElementById('purchaseButton'),purchaseFeedback=document.getElementById('purchaseFeedback'),purchaseStep=document.getElementById('purchaseStep');
   purchaseButton.addEventListener('click',()=>{fbq('track','Purchase',{value:79.90,currency:'BRL',content_name:'Pack Entrenamiento Melisa - Demo',content_ids:['SKU-ENTRE1'],content_type:'product',num_items:1});purchaseButton.classList.add('hidden');purchaseFeedback.classList.remove('hidden');purchaseStep.classList.add('done');purchaseStep.querySelector('small').textContent='Compra confirmada';});
   </script>
 </body>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Caso práctico de un evento duplicado en Meta Pixel.">
+  <title>Evento duplicado — Laboratorio de Pixel</title><link rel="stylesheet" href="style.css">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','3213433525488406');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Caso 01 - Evento duplicado'});
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3213433525488406&ev=PageView&noscript=1" alt=""></noscript>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Laboratorio de Pixel</a><span class="status warning"><i></i> Caso con error intencional</span></header>
+  <main class="case-layout">
+    <section>
+      <a class="back" href="index.html">← Volver al laboratorio</a><p class="eyebrow">Caso 01 · Evento duplicado</p>
+      <h1>Un clic.<br>Dos eventos.</h1><p class="lead">El cliente agrega el producto al carrito una sola vez. Ejecuta la acción y observa qué recibe Meta.</p>
+      <article class="case-action">
+        <div><span class="tag">Acción del cliente</span><h2>Pack de entrenamiento</h2><p>Haz clic una sola vez. No repitas la acción.</p></div>
+        <div class="case-price"><strong>R$ 79,90</strong><span>SKU-ENTRE1</span></div>
+        <button id="duplicateButton" class="button primary">Agregar una vez al carrito</button>
+        <p id="caseFeedback" class="feedback" role="status" aria-live="polite"></p>
+      </article>
+      <div id="investigation" class="investigation hidden">
+        <p class="eyebrow">Pausa para investigar</p><h2>¿Cuál es la primera diferencia respecto del recorrido ideal?</h2>
+        <p>Observa la cantidad de acciones realizadas y compárala con la cantidad de eventos recibidos.</p>
+        <details><summary>Ver explicación técnica</summary><p>El código ejecutó dos llamadas <strong>fbq('track', 'AddToCart')</strong> para un solo clic. Por eso Meta recibió dos eventos con los mismos parámetros y prácticamente a la misma hora.</p></details>
+      </div>
+    </section>
+    <aside class="observer duplicate-observer">
+      <p class="eyebrow">Monitor de eventos</p><h2>Resultado recibido</h2>
+      <div class="counter-grid"><div><span>Acciones</span><strong id="actionCount">0</strong></div><div><span>Eventos</span><strong id="eventCount">0</strong></div></div>
+      <div id="emptyMonitor" class="empty-monitor">Ejecuta la acción para ver los eventos.</div>
+      <div id="eventList" class="event-list hidden"></div>
+      <div id="mismatch" class="mismatch hidden"><strong>⚠ Diferencia detectada</strong><span>1 acción ≠ 2 eventos</span></div>
+    </aside>
+  </main>
+  <footer><span>Laboratorio de Pixel</span><span>Creado por Melisa Almada</span></footer>
+  <script>
+  const duplicateButton=document.getElementById('duplicateButton'),actionCount=document.getElementById('actionCount'),eventCount=document.getElementById('eventCount'),emptyMonitor=document.getElementById('emptyMonitor'),eventList=document.getElementById('eventList'),mismatch=document.getElementById('mismatch'),investigation=document.getElementById('investigation'),caseFeedback=document.getElementById('caseFeedback');
+  duplicateButton.addEventListener('click',()=>{
+    const parameters={value:79.90,currency:'BRL',content_ids:['SKU-ENTRE1'],content_type:'product'};
+    fbq('track','AddToCart',parameters);
+    fbq('track','AddToCart',parameters);
+    const time=new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    actionCount.textContent='1';eventCount.textContent='2';emptyMonitor.classList.add('hidden');eventList.classList.remove('hidden');mismatch.classList.remove('hidden');investigation.classList.remove('hidden');
+    eventList.innerHTML='<div class="event-hit"><span>1</span><div><strong>AddToCart</strong><small>'+time+' · R$ 79,90</small></div></div><div class="event-hit"><span>2</span><div><strong>AddToCart</strong><small>'+time+' · R$ 79,90</small></div></div>';
+    duplicateButton.textContent='Acción ejecutada ✓';duplicateButton.disabled=true;duplicateButton.classList.add('success');caseFeedback.textContent='La acción se realizó una vez. Ahora revisa el monitor.';
+  });
+  </script>
+</body>
+</html>

@@ -1,58 +1,32 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Entrenamiento Melisa #XXX — Producto</title>
-
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Meta Pixel Base (ID: 3213433525488406) -->
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Práctica de eventos — Laboratorio de Pixel</title><link rel="stylesheet" href="style.css">
+  <!-- Meta Pixel Code -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '3213433525488406');
-    fbq('track', 'PageView');
-    fbq('track', 'ViewContent'); /* evento de visualización de producto */
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','3213433525488406');fbq('track','PageView');fbq('track','ViewContent');
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=3213433525488406&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3213433525488406&ev=PageView&noscript=1" alt=""></noscript>
 </head>
 <body>
-  <main class="site" role="main" style="padding-top:2rem; padding-bottom:2rem;">
-    <section style="max-width:900px;margin:0 auto;">
-      <div class="card" style="display:flex;flex-direction:column;align-items:center;">
-        <img class="product-img" src="producto.jpg" alt="Producto Entrenamiento Melisa">
-        <h2 class="product-title">Pack Entrenamiento Melisa — Demo</h2>
-        <p class="product-desc">Un plan hipotético para la formación de agentes. Usa los botones para enviar eventos a Meta.</p>
-
-        <div style="display:flex;gap:0.9rem;margin-top:0.8rem;flex-wrap:wrap;">
-          <button id="addCart" class="btn btn-primary" type="button">Agregar al carrito</button>
-          <a href="index.html" class="btn btn-outline" role="button">Volver</a>
-        </div>
-
-        <p class="small" style="margin-top:0.9rem;">Nota: desactiva ad-blockers para pruebas en vivo.</p>
-      </div>
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Laboratorio de Pixel</a><span class="status"><i></i> Entorno de práctica</span></header>
+  <main class="practice">
+    <section>
+      <a class="back" href="index.html">← Volver al recorrido</a><p class="eyebrow">Paso 1 · Realiza una acción</p>
+      <h1>Simulación de compra</h1><p class="lead">Esta página ya generó un evento <strong>ViewContent</strong>. Ahora agrega el producto al carrito y observa qué cambia.</p>
+      <article class="product-card">
+        <div class="product-visual"><span aria-hidden="true">▦</span><small>PRODUCTO DE PRÁCTICA</small></div>
+        <div class="product-info"><span class="tag">Demostración</span><h2>Pack de entrenamiento</h2><p>Producto simulado para generar eventos y analizar los parámetros enviados.</p><div class="meta"><strong>R$ 79,90</strong><span>SKU-ENTRE1</span></div><button id="addCart" class="button primary">Agregar al carrito</button><p id="feedback" class="feedback" role="status" aria-live="polite"></p></div>
+      </article>
     </section>
+    <aside class="observer"><p class="eyebrow">Panel de observación</p><h2>¿Qué debes buscar?</h2><dl><div><dt>Evento esperado</dt><dd>AddToCart</dd></div><div><dt>Valor</dt><dd>79.90</dd></div><div><dt>Moneda</dt><dd>BRL</dd></div><div><dt>Content ID</dt><dd>SKU-ENTRE1</dd></div></dl><div class="tip"><strong>Herramientas de comprobación</strong><p>Abre Meta Pixel Helper y la pestaña <em>Probar eventos</em>.</p></div></aside>
   </main>
-
+  <footer><span>Laboratorio de Pixel</span><span>Creado por Melisa Almada</span></footer>
   <script>
-    // Evento AddToCart - envía datos con parámetros (visibles en Test Events)
-    document.getElementById('addCart').addEventListener('click', function(){
-      fbq('track','AddToCart',{
-        value: 79.90,
-        currency: 'BRL',
-        content_name: 'Pack Entrenamiento Melisa - Demo',
-        content_ids: ['SKU-ENTRE1']
-      });
-      alert('Evento AddToCart enviado (ver en Pixel Helper / Events Manager).');
-    });
+  const button=document.getElementById('addCart'),feedback=document.getElementById('feedback');
+  button.addEventListener('click',()=>{fbq('track','AddToCart',{value:79.90,currency:'BRL',content_name:'Pack Entrenamiento Melisa - Demo',content_ids:['SKU-ENTRE1']});button.textContent='Evento enviado ✓';button.classList.add('success');feedback.textContent='AddToCart fue enviado. Comprueba ahora el evento y sus parámetros.';});
   </script>
 </body>
 </html>

@@ -5,6 +5,7 @@ Este espacio reúne las notas del entrenador para cada escenario del laboratorio
 ## Casos
 
 1. [Evento duplicado](01-evento-duplicado.md)
+2. [Parámetros incompletos](02-parametros-incompletos.md)
 
 ## Estructura de las fichas
 
@@ -15,4 +16,3 @@ Este espacio reúne las notas del entrenador para cada escenario del laboratorio
 - Ruta de investigación.
 - Posibles soluciones.
 - Preguntas para el entrenamiento.
-

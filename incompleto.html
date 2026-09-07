@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Caso práctico de un evento Purchase con parámetros incompletos.">
+  <title>Parámetros incompletos — Laboratorio de Pixel</title><link rel="stylesheet" href="style.css">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','3213433525488406');fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3213433525488406&ev=PageView&noscript=1" alt=""></noscript>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Laboratorio de Pixel</a><span class="status warning"><i></i> Caso con error intencional</span></header>
+  <main class="case-layout">
+    <section>
+      <a class="back" href="index.html">← Volver al laboratorio</a><p class="eyebrow">Caso 02 · Parámetros incompletos</p>
+      <h1>El evento llegó.<br>¿Está completo?</h1><p class="lead">La compra fue confirmada y Meta recibió <strong>Purchase</strong>. Compara los datos esperados con los datos realmente enviados.</p>
+      <article class="case-action">
+        <div><span class="tag">Compra simulada</span><h2>Pedido #LAB-002</h2><p>El cliente completó una compra por R$ 149,90.</p></div>
+        <div class="case-price"><strong>R$ 149,90</strong><span>SKU-LAB02</span></div>
+        <button id="incompleteButton" class="button primary">Confirmar compra</button>
+        <p id="caseFeedback" class="feedback" role="status" aria-live="polite"></p>
+      </article>
+      <div id="investigation" class="investigation hidden">
+        <p class="eyebrow">Pausa para investigar</p><h2>¿Qué información falta para interpretar correctamente esta compra?</h2>
+        <p>Identifica primero los campos ausentes. Después piensa qué mediciones o decisiones podrían verse afectadas.</p>
+        <details><summary>Ver explicación técnica</summary><p>La llamada de <strong>Purchase</strong> fue enviada sin el objeto de parámetros. Meta puede registrar el nombre del evento, pero no recibe el valor, la moneda ni el identificador del contenido asociados a esta compra.</p></details>
+      </div>
+    </section>
+    <aside class="observer compare-observer">
+      <p class="eyebrow">Inspector de parámetros</p><h2>Esperado vs. recibido</h2>
+      <div class="comparison-head"><span>Parámetro</span><span>Esperado</span><span>Recibido</span></div>
+      <div class="comparison-row"><strong>event_name</strong><span>Purchase</span><span id="receivedEvent">Esperando</span></div>
+      <div class="comparison-row"><strong>value</strong><span>149.90</span><span id="receivedValue">Esperando</span></div>
+      <div class="comparison-row"><strong>currency</strong><span>BRL</span><span id="receivedCurrency">Esperando</span></div>
+      <div class="comparison-row"><strong>content_ids</strong><span>["SKU-LAB02"]</span><span id="receivedContent">Esperando</span></div>
+      <div id="qualityAlert" class="mismatch hidden"><strong>⚠ Evento incompleto</strong><span>El nombre llegó, pero faltan parámetros.</span></div>
+    </aside>
+  </main>
+  <footer><span>Laboratorio de Pixel</span><span>Creado por Melisa Almada</span></footer>
+  <script>
+  const incompleteButton=document.getElementById('incompleteButton'),caseFeedback=document.getElementById('caseFeedback'),investigation=document.getElementById('investigation'),qualityAlert=document.getElementById('qualityAlert');
+  incompleteButton.addEventListener('click',()=>{fbq('track','Purchase');document.getElementById('receivedEvent').textContent='Purchase ✓';['receivedValue','receivedCurrency','receivedContent'].forEach(id=>{const item=document.getElementById(id);item.textContent='No enviado';item.classList.add('missing')});qualityAlert.classList.remove('hidden');investigation.classList.remove('hidden');incompleteButton.textContent='Evento enviado ✓';incompleteButton.classList.add('success');incompleteButton.disabled=true;caseFeedback.textContent='Purchase fue recibido. Ahora revisa la calidad de sus datos.';});
+  </script>
+</body>
+</html>

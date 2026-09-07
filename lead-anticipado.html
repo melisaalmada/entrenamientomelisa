@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Caso práctico de un evento Lead activado al iniciar un formulario.">
+  <title>Lead anticipado — Laboratorio de Pixel</title><link rel="stylesheet" href="style.css">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','3213433525488406');fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3213433525488406&ev=PageView&noscript=1" alt=""></noscript>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Laboratorio de Pixel</a><span class="status warning"><i></i> Caso con error intencional</span></header>
+  <main class="case-layout">
+    <section>
+      <a class="back" href="index.html">← Volver al laboratorio</a><p class="eyebrow">Caso 03 · Lead anticipado</p>
+      <h1>Iniciar un formulario<br>no es generar un Lead.</h1>
+      <p class="lead">Abre el formulario, pero no completes ni envíes nada. Después compara tu acción con lo que registró la integración.</p>
+
+      <article class="case-action form-case">
+        <div id="formIntro">
+          <span class="tag">Demostración guiada</span><h2>Solicitud de información</h2>
+          <p>Este botón debería mostrar el formulario. Sin embargo, contiene una configuración incorrecta.</p>
+          <button id="openFormButton" class="button primary">Abrir formulario</button>
+        </div>
+
+        <div id="formStage" class="hidden">
+          <div class="opened-banner"><span>✓</span><div><strong>Formulario abierto</strong><small>Todavía no fue completado ni enviado.</small></div></div>
+          <form id="demoForm" autocomplete="off">
+            <label>Nombre ficticio<input type="text" placeholder="Ejemplo: Persona de prueba"></label>
+            <label>Correo ficticio<input type="email" placeholder="persona@ejemplo.com"></label>
+            <label>Consulta<textarea rows="3" placeholder="Escribe una consulta de prueba"></textarea></label>
+            <button type="button" class="button secondary" disabled>Enviar formulario</button>
+          </form>
+          <p class="privacy-note">No ingreses datos reales. El envío permanece desactivado para que puedas observar el error.</p>
+        </div>
+      </article>
+
+      <button id="inspectButton" class="button primary inspect-button hidden">Investigar la diferencia</button>
+      <div id="investigation" class="investigation hidden">
+        <p class="eyebrow">Pausa para investigar</p><h2>¿En qué momento debería activarse Lead?</h2>
+        <p>Compara el inicio del formulario con una confirmación exitosa. ¿Ambas acciones representan lo mismo?</p>
+        <details><summary>Ver explicación técnica</summary><p><strong>Lead</strong> se ejecutó al hacer clic en <strong>Abrir formulario</strong>. La activación correcta debería depender de una confirmación exitosa, no de que una persona solamente inicie el proceso.</p></details>
+      </div>
+    </section>
+
+    <aside class="observer lead-observer">
+      <p class="eyebrow">Control del recorrido</p><h2>Acción real vs. medición</h2>
+      <div class="lead-state" id="openedState"><span class="state-icon">○</span><div><strong>Formulario abierto</strong><small>No</small></div></div>
+      <div class="lead-state"><span class="state-icon">○</span><div><strong>Formulario enviado</strong><small>No</small></div></div>
+      <div class="lead-state" id="leadState"><span class="state-icon">—</span><div><strong>Lead recibido</strong><small>Esperando una acción</small></div></div>
+      <div id="leadAlert" class="mismatch hidden"><strong>⚠ Momento incorrecto</strong><span>Formulario iniciado · 0 envíos · 1 Lead</span></div>
+      <div id="metaTip" class="tip hidden"><strong>Qué observar en Meta</strong><p>Lead aparece en el momento de abrir el formulario, antes de completarlo o enviarlo.</p></div>
+    </aside>
+  </main>
+  <footer><span>Laboratorio de Pixel</span><span>Creado por Melisa Almada</span></footer>
+  <script>
+  const openFormButton=document.getElementById('openFormButton'),formIntro=document.getElementById('formIntro'),formStage=document.getElementById('formStage'),inspectButton=document.getElementById('inspectButton'),investigation=document.getElementById('investigation'),leadAlert=document.getElementById('leadAlert'),metaTip=document.getElementById('metaTip'),openedState=document.getElementById('openedState'),leadState=document.getElementById('leadState');
+  openFormButton.addEventListener('click',()=>{
+    fbq('track','Lead');
+    formIntro.classList.add('hidden');formStage.classList.remove('hidden');inspectButton.classList.remove('hidden');leadAlert.classList.remove('hidden');metaTip.classList.remove('hidden');
+    openedState.classList.add('done');openedState.querySelector('.state-icon').textContent='✓';openedState.querySelector('small').textContent='Sí';
+    leadState.classList.add('problem');leadState.querySelector('.state-icon').textContent='!';leadState.querySelector('small').textContent='Sí, al abrir el formulario';
+  });
+  inspectButton.addEventListener('click',()=>{investigation.classList.remove('hidden');inspectButton.textContent='Diferencia identificada ✓';inspectButton.classList.add('success');inspectButton.disabled=true;});
+  </script>
+</body>
+</html>

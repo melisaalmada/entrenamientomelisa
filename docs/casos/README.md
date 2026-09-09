@@ -7,6 +7,7 @@ Este espacio reúne las notas del entrenador para cada escenario del laboratorio
 1. [Evento duplicado](01-evento-duplicado.md)
 2. [Parámetros incompletos](02-parametros-incompletos.md)
 3. [Lead generado antes del envío](03-lead-anticipado.md)
+4. [Evento ausente](04-evento-ausente.md)
 
 ## Estructura de las fichas
 

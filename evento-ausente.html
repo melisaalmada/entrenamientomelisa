@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Caso práctico de una compra completada sin evento Purchase.">
+  <title>Evento ausente — Laboratorio de Pixel</title><link rel="stylesheet" href="style.css">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','3213433525488406');fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3213433525488406&ev=PageView&noscript=1" alt=""></noscript>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Laboratorio de Pixel</a><span class="status warning"><i></i> Caso con error intencional</span></header>
+  <main class="case-layout">
+    <section>
+      <a class="back" href="index.html">← Volver al laboratorio</a><p class="eyebrow">Caso 04 · Evento ausente</p>
+      <h1>La compra ocurrió.<br>La señal no llegó.</h1>
+      <p class="lead">Completa la operación simulada y compara la confirmación del sitio con el evento que debería recibir Meta.</p>
+      <article class="case-action">
+        <div><span class="tag">Checkout simulado</span><h2>Pedido #LAB-004</h2><p>Un producto listo para confirmar.</p></div>
+        <div class="case-price"><strong>R$ 219,90</strong><span>SKU-LAB04</span></div>
+        <button id="completePurchase" class="button primary">Completar compra</button>
+        <div id="siteConfirmation" class="purchase-feedback hidden" role="status" aria-live="polite"><span>✓</span><div><strong>Compra confirmada en el sitio</strong><p>El pedido #LAB-004 fue completado correctamente.</p></div></div>
+      </article>
+      <button id="inspectMissing" class="button primary inspect-button hidden">Comprobar la medición</button>
+      <div id="investigation" class="investigation hidden">
+        <p class="eyebrow">Pausa para investigar</p><h2>¿Dónde se interrumpió el recorrido?</h2>
+        <p>Separa primero los dos hechos: la compra fue confirmada en el sitio, pero no existe un evento que la represente en Meta.</p>
+        <details><summary>Ver explicación técnica</summary><p>El botón completa la simulación visual, pero su código no ejecuta <strong>fbq('track', 'Purchase')</strong>. La acción comercial ocurre sin producir la señal esperada.</p></details>
+      </div>
+    </section>
+    <aside class="observer missing-observer">
+      <p class="eyebrow">Monitor de señal</p><h2>Acción vs. evento</h2>
+      <div class="signal-check"><span>Acción en el sitio</span><strong id="siteStatus">Pendiente</strong></div>
+      <div class="signal-check"><span>Evento esperado</span><strong>Purchase</strong></div>
+      <div class="signal-check"><span>Eventos recibidos</span><strong id="receivedCount">—</strong></div>
+      <div id="missingAlert" class="mismatch hidden"><strong>⚠ Señal ausente</strong><span>1 compra confirmada · 0 Purchase</span></div>
+      <div id="missingTip" class="tip hidden"><strong>Qué observar en Meta</strong><p>PageView está presente, pero no aparece Purchase después de confirmar la compra.</p></div>
+    </aside>
+  </main>
+  <footer><span>Laboratorio de Pixel</span><span>Creado por Melisa Almada</span></footer>
+  <script>
+  const completePurchase=document.getElementById('completePurchase'),siteConfirmation=document.getElementById('siteConfirmation'),inspectMissing=document.getElementById('inspectMissing'),investigation=document.getElementById('investigation'),siteStatus=document.getElementById('siteStatus'),receivedCount=document.getElementById('receivedCount'),missingAlert=document.getElementById('missingAlert'),missingTip=document.getElementById('missingTip');
+  completePurchase.addEventListener('click',()=>{
+    completePurchase.classList.add('hidden');siteConfirmation.classList.remove('hidden');inspectMissing.classList.remove('hidden');siteStatus.textContent='Confirmada ✓';siteStatus.classList.add('received-ok');receivedCount.textContent='0';receivedCount.classList.add('missing-text');missingAlert.classList.remove('hidden');missingTip.classList.remove('hidden');
+    /* Error intencional: no se ejecuta fbq('track', 'Purchase'). */
+  });
+  inspectMissing.addEventListener('click',()=>{investigation.classList.remove('hidden');inspectMissing.textContent='Interrupción identificada ✓';inspectMissing.classList.add('success');inspectMissing.disabled=true;});
+  </script>
+</body>
+</html>
